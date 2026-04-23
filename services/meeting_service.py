@@ -1,108 +1,293 @@
+# import os
+# import re
+# import uuid
+# import datetime
+
+# from state.chat_state import get_state
+# from db.mongo import meeting_collection
+
+
+# # =========================
+# # ✅ SAFE DATETIME PARSER
+# # =========================
+# def parse_datetime_safe(date, time):
+#     try:
+#         return datetime.datetime.strptime(f"{date} {time}", "%Y-%m-%d %I:%M %p")
+#     except:
+#         try:
+#             return datetime.datetime.strptime(f"{date} {time}", "%Y-%m-%d %H:%M")
+#         except Exception as e:
+#             raise Exception(f"Invalid time format: {str(e)}")
+
+
+# def handle_meeting(user_id, message):
+
+#     msg = message.lower().strip()
+#     state = get_state(user_id)
+
+#     # ======================================================
+#     # 🔥 UPDATE EXISTING MEETING
+#     # ======================================================
+#     if state and state.get("step") == "update_existing_meeting":
+
+#         from services.parser import parse_meeting
+#         from auth.token_service import get_token
+#         from googleapiclient.discovery import build
+#         from google.oauth2.credentials import Credentials
+
+#         parsed = parse_meeting(user_id, message)
+
+#         if not parsed:
+#             return {"message": "❌ Could not understand meeting", "event_id": None}
+
+#         date = parsed.get("date")
+#         time = parsed.get("time")
+
+#         try:
+#             start = parse_datetime_safe(date, time)
+#         except Exception as e:
+#             return {"message": str(e), "event_id": None}
+
+#         end = start + datetime.timedelta(minutes=parsed.get("duration", 30))
+
+#         token = get_token(user_id)
+#         if not token:
+#             return {"message": "❌ Google not connected", "event_id": None}
+
+#         creds = Credentials(
+#             token=token["access_token"],
+#             refresh_token=token["refresh_token"],
+#             token_uri="https://oauth2.googleapis.com/token",
+#             client_id=token["client_id"],
+#             client_secret=token["client_secret"]
+#         )
+
+#         service = build("calendar", "v3", credentials=creds)
+
+#         event_id = state.get("event_id")
+
+#         event = service.events().patch(
+#             calendarId="primary",
+#             eventId=event_id,
+#             body={
+#                 "start": {"dateTime": start.isoformat(), "timeZone": "Asia/Kolkata"},
+#                 "end": {"dateTime": end.isoformat(), "timeZone": "Asia/Kolkata"}
+#             }
+#         ).execute()
+
+#         meeting_url = event.get("hangoutLink")
+
+#         meeting_collection.update_one(
+#             {"event_id": event_id},
+#             {"$set": {"date": date, "time": time}}
+#         )
+
+#         return {
+#             "message": f"🔄 Meeting updated successfully\n👉 {meeting_url}",
+#             "meeting_url": meeting_url,
+#             "event_id": event_id
+#         }
+
+#     # ======================================================
+#     # 🔥 CREATE NEW MEETING
+#     # ======================================================
+#     if "meeting" in msg:
+
+#         from services.parser import parse_meeting
+#         from auth.token_service import get_token
+#         from googleapiclient.discovery import build
+#         from google.oauth2.credentials import Credentials
+
+#         parsed = parse_meeting(user_id, message)
+
+#         if not parsed:
+#             return {"message": "❌ Could not understand meeting", "event_id": None}
+
+#         date = parsed.get("date")
+#         time = parsed.get("time")
+
+#         try:
+#             start = parse_datetime_safe(date, time)
+#         except Exception as e:
+#             return {"message": str(e), "event_id": None}
+
+#         end = start + datetime.timedelta(minutes=parsed.get("duration", 30))
+
+#         token = get_token(user_id)
+#         if not token:
+#             return {"message": "❌ Google not connected", "event_id": None}
+
+#         creds = Credentials(
+#             token=token["access_token"],
+#             refresh_token=token["refresh_token"],
+#             token_uri="https://oauth2.googleapis.com/token",
+#             client_id=token["client_id"],
+#             client_secret=token["client_secret"]
+#         )
+
+#         service = build("calendar", "v3", credentials=creds)
+
+#         event = service.events().insert(
+#             calendarId="primary",
+#             body={
+#                 "summary": parsed.get("title", "Meeting"),
+#                 "start": {"dateTime": start.isoformat(), "timeZone": "Asia/Kolkata"},
+#                 "end": {"dateTime": end.isoformat(), "timeZone": "Asia/Kolkata"},
+#                 "conferenceData": {
+#                     "createRequest": {
+#                         "requestId": str(uuid.uuid4()),
+#                         "conferenceSolutionKey": {"type": "hangoutsMeet"}
+#                     }
+#                 }
+#             },
+#             conferenceDataVersion=1
+#         ).execute()
+
+#         meeting_url = event.get("hangoutLink")
+#         event_id = event.get("id")
+
+#         meeting_collection.insert_one({
+#             "user_id": user_id,
+#             "event_id": event_id,
+#             "meeting_url": meeting_url,
+#             "date": date,
+#             "time": time,
+#             "created_at": datetime.datetime.utcnow()
+#         })
+
+#         return {
+#             "message": f"📅 Meeting created\n👉 {meeting_url}",
+#             "meeting_url": meeting_url,
+#             "event_id": event_id
+#         }
+
+#     return {"message": "❓ Try: 'schedule meeting today 7pm'", "event_id": None}
+
+
+
+
+
+
+
 import os
 import re
 import uuid
 import datetime
 
-from state.chat_state import set_state, get_state, clear_state
-from db.mongo import report_collection, meeting_collection
-from config.config import NGROK_URL
-from services.scheduler_service import add_scheduled_meeting
+from state.chat_state import get_state
+from db.mongo import meeting_collection
+from auth.token_service import get_token
+from googleapiclient.discovery import build
+from google.oauth2.credentials import Credentials
 
 
+# =========================
+# SAFE PARSE (AM/PM + 24h)
+# =========================
+def parse_datetime(date, time):
+    try:
+        time = re.sub(r"\s+", " ", time).strip()
+
+        if "AM" in time or "PM" in time:
+            return datetime.datetime.strptime(
+                f"{date} {time}",
+                "%Y-%m-%d %I:%M %p"
+            )
+        else:
+            return datetime.datetime.strptime(
+                f"{date} {time}",
+                "%Y-%m-%d %H:%M"
+            )
+    except:
+        return None
+
+
+# =========================
+# MAIN MEETING HANDLER
+# =========================
 def handle_meeting(user_id, message):
 
     msg = message.lower().strip()
     state = get_state(user_id)
 
-    # =========================
-    # 📄 REPORT FLOW
-    # =========================
-
-    if "report" in msg or "pdf" in msg:
-
-        report = report_collection.find_one(
-        {"user_id": user_id},
-            sort=[("created_at", -1)]
+    # ======================================================
+    # 🔥 UPDATE EXISTING MEETING (PATCH - FIXED)
+    # ======================================================
+    if state and state.get("step") == "meeting_reconfirm":
+    
+        event_id = state.get("event_id")
+    
+        if not event_id:
+            return {"message": "❌ event_id missing in state"}
+    
+        parsed = state.get("new_meeting")
+    
+        if not parsed:
+            return {"message": "❌ Missing meeting data"}
+    
+        start = parse_datetime(parsed["date"], parsed["time"])
+    
+        if not start:
+            return {"message": "❌ Invalid datetime"}
+    
+        end = start + datetime.timedelta(minutes=30)
+    
+        token = get_token(user_id)
+    
+        if not token:
+            return {"message": "❌ Google not connected"}
+    
+        creds = Credentials(
+            token=token["access_token"],
+            refresh_token=token["refresh_token"],
+            token_uri="https://oauth2.googleapis.com/token",
+            client_id=token["client_id"],
+            client_secret=token["client_secret"]
         )
     
-        if not report:
-            return {"message": "⏳ No report found yet"}
+        service = build("calendar", "v3", credentials=creds)
     
-        pdf_path = report.get("pdf_report_path")
+        # 🔥 SAFE PATCH CALL
+        service.events().patch(
+            calendarId="primary",
+            eventId=event_id,
+            body={
+                "start": {
+                    "dateTime": start.isoformat(),
+                    "timeZone": "Asia/Kolkata"
+                },
+                "end": {
+                    "dateTime": end.isoformat(),
+                    "timeZone": "Asia/Kolkata"
+                }
+            }
+        ).execute()
     
-        if not pdf_path:
-            return {"message": "❌ PDF not generated yet"}
-    
-        pdf_url = f"{NGROK_URL}/reports/{os.path.basename(pdf_path)}"
-    
-        # 🔥 NEW STATE (ASK CONFIRMATION FIRST)
-        set_state(user_id, {
-            "step": "ask_pdf_confirm",
-            "pdf_path": pdf_path
-        })
+        meeting = meeting_collection.find_one({"event_id": event_id})
     
         return {
-            "message": f"""📄 Report ready  
-    👉 {pdf_url}
-    
-    ❓ Do you want to ask questions from this PDF? (yes/no)"""
+            "message": "🔄 Meeting updated successfully",
+            "meeting_url": meeting.get("meeting_url"),
+            "event_id": event_id
         }
 
-    # =========================
-    # 📚 PDF QA MODE
-    # =========================
-    if state and state.get("step") == "pdf_qa":
-
-        from services.pdf_qa_service import ask_pdf, vector_store, create_vector_db
-
-        if user_id not in vector_store:
-            create_vector_db(user_id, state["pdf_path"])
-
-        if msg in ["exit", "stop"]:
-            clear_state(user_id)
-            vector_store.pop(user_id, None)
-            return {"message": "❌ Exited QA mode"}
-
-        return {"message": ask_pdf(user_id, message)}
-
-    # =========================
-    # 📅 MEETING CREATION
-    # =========================
+    # ======================================================
+    # 🔥 CREATE NEW MEETING
+    # ======================================================
     if "meeting" in msg:
 
-        from services.parser import parse_meeting
-        from auth.token_service import get_token
-        from googleapiclient.discovery import build
-        from google.oauth2.credentials import Credentials
-
-        import datetime
-
-        parsed = parse_meeting(user_id, message)
+        parsed = state.get("new_meeting") if state and "new_meeting" in state else None
 
         if not parsed:
-            return {"message": "❌ Could not understand meeting"}
+            return {"message": "❌ Could not parse meeting"}
 
-        date = parsed.get("date", "").strip()
-        time = parsed.get("time", "").strip()
+        start = parse_datetime(parsed["date"], parsed["time"])
+        if not start:
+            return {"message": "❌ Invalid time format"}
 
-        if not date or not time:
-            return {"message": "⏰ Missing date/time"}
-
-        # fix spacing issues in time
-        time = re.sub(r"\s+", " ", time).strip()
-
-        try:
-            start = datetime.datetime.strptime(
-                f"{date} {time}",
-                "%Y-%m-%d %H:%M"
-            )
-        except Exception as e:
-            return {"message": f"❌ Time error: {str(e)}"}
-
-        end = start + datetime.timedelta(minutes=parsed.get("duration", 30))
+        end = start + datetime.timedelta(minutes=30)
 
         token = get_token(user_id)
-
         if not token:
             return {"message": "❌ Google not connected"}
 
@@ -117,12 +302,12 @@ def handle_meeting(user_id, message):
         service = build("calendar", "v3", credentials=creds)
 
         # =========================
-        # CREATE GOOGLE EVENT
+        # CREATE EVENT (ONLY ONCE)
         # =========================
         event = service.events().insert(
             calendarId="primary",
             body={
-                "summary": parsed["title"],
+                "summary": parsed.get("title", "Meeting"),
                 "start": {
                     "dateTime": start.isoformat(),
                     "timeZone": "Asia/Kolkata"
@@ -146,77 +331,22 @@ def handle_meeting(user_id, message):
         meeting_url = event.get("hangoutLink")
         event_id = event.get("id")
 
-        # =========================
-        # ✅ FIX: GET PARTICIPANTS SAFELY
-        # =========================
-        participants = []
-
-        try:
-            attendees = event.get("attendees", [])
-            participants = [
-                a.get("email")
-                for a in attendees
-                if isinstance(a, dict) and a.get("email")
-            ]
-        except Exception as e:
-            print("⚠️ participant extract error:", e)
-
-        # =========================
-        # SAVE MEETING
-        # =========================
         meeting_collection.insert_one({
             "user_id": user_id,
             "event_id": event_id,
             "meeting_url": meeting_url,
-            "participants": participants,   # ✅ FIXED
+            "date": parsed["date"],
+            "time": parsed["time"],
             "created_at": datetime.datetime.utcnow()
         })
 
-        # =========================
-        # SAVE STATE
-        # =========================
-        set_state(user_id, {
-            "step": "record_confirm",
-            "meeting_url": meeting_url,
-            "event_id": event_id,
-            "start_time": start.isoformat()
-        })
-
         return {
-            "message": f"📅 Meeting created\n👉 {meeting_url}\n\nBot join & record? (yes/no)"
+            "message": "📅 Meeting created",
+            "meeting_url": meeting_url,
+            "event_id": event_id
         }
 
-    # =========================
-    # 🤖 BOT RECORD CONFIRM
-    # =========================
-    if state and state.get("step") == "record_confirm":
-
-        meeting_url = state["meeting_url"]
-        event_id = state["event_id"]
-
-        if msg == "yes":
-
-            add_scheduled_meeting(
-                job_id=event_id,
-                meeting_url=meeting_url,
-                scheduled_at_iso=state["start_time"],
-                user_id=user_id
-            )
-
-            clear_state(user_id)
-
-            return {
-                "message": f"🤖 Bot scheduled\n👉 {meeting_url}"
-            }
-
-        if msg == "no":
-
-            clear_state(user_id)
-
-            return {
-                "message": f"👍 Meeting created only\n👉 {meeting_url}"
-            }
-
-        return {"message": "Please reply YES or NO"}
-
-    return {"message": "Type: meeting or report"}
+    # ======================================================
+    # DEFAULT
+    # ======================================================
+    return {"message": "❌ No meeting action detected"}

@@ -1,0 +1,1598 @@
+{
+  "id": "48bbc40c-4c7c-4499-a604-f8b0cff808a5",
+  "language_model": "assemblyai_default",
+  "acoustic_model": "assemblyai_default",
+  "language_code": "en",
+  "speech_understanding": null,
+  "translated_texts": null,
+  "status": "completed",
+  "audio_url": "https://cdn.assemblyai.com/upload/9816e60f28cff924727ff89e862805cc068fb8577e7a1cde6c675882e32e2163/b099046e-f10b-4bb1-b842-1b759057b546",
+  "text": "Foreign. Topic placement Impact of technology on society the course and cons of remote work, climate changes and consequences mental health awareness and liver place ethics in business and corporate social responsibility gender diversity and incline in the workplace Impact of social media on personal and professional life fake news and influence on public concern in the digital age and the what is the current object to economic trends? Discussion about recent economics with development, physical policy or marketing trends Political issues Topic related to recent elections, government policies and international relations Social matter issue concerns society such as healthcare, education and cultural trends.",
+  "words": [
+    {
+      "text": "Foreign.",
+      "start": 153420,
+      "end": 153820,
+      "confidence": 0.82470703,
+      "speaker": "A"
+    },
+    {
+      "text": "Topic",
+      "start": 169340,
+      "end": 169900,
+      "confidence": 0.95581055,
+      "speaker": "B"
+    },
+    {
+      "text": "placement",
+      "start": 169900,
+      "end": 170620,
+      "confidence": 0.7114258,
+      "speaker": "B"
+    },
+    {
+      "text": "Impact",
+      "start": 171340,
+      "end": 171700,
+      "confidence": 0.97216797,
+      "speaker": "B"
+    },
+    {
+      "text": "of",
+      "start": 171700,
+      "end": 171980,
+      "confidence": 0.9995117,
+      "speaker": "B"
+    },
+    {
+      "text": "technology",
+      "start": 171980,
+      "end": 172300,
+      "confidence": 1.0,
+      "speaker": "B"
+    },
+    {
+      "text": "on",
+      "start": 172300,
+      "end": 172620,
+      "confidence": 0.8354492,
+      "speaker": "B"
+    },
+    {
+      "text": "society",
+      "start": 172620,
+      "end": 173060,
+      "confidence": 0.998291,
+      "speaker": "B"
+    },
+    {
+      "text": "the",
+      "start": 173060,
+      "end": 173340,
+      "confidence": 0.6816406,
+      "speaker": "B"
+    },
+    {
+      "text": "course",
+      "start": 173340,
+      "end": 173620,
+      "confidence": 0.37670898,
+      "speaker": "B"
+    },
+    {
+      "text": "and",
+      "start": 173620,
+      "end": 173940,
+      "confidence": 0.57177734,
+      "speaker": "B"
+    },
+    {
+      "text": "cons",
+      "start": 173940,
+      "end": 174260,
+      "confidence": 0.97558594,
+      "speaker": "B"
+    },
+    {
+      "text": "of",
+      "start": 174260,
+      "end": 174500,
+      "confidence": 0.9941406,
+      "speaker": "B"
+    },
+    {
+      "text": "remote",
+      "start": 174500,
+      "end": 174980,
+      "confidence": 0.98860675,
+      "speaker": "B"
+    },
+    {
+      "text": "work,",
+      "start": 174980,
+      "end": 175220,
+      "confidence": 0.98535156,
+      "speaker": "B"
+    },
+    {
+      "text": "climate",
+      "start": 175220,
+      "end": 175620,
+      "confidence": 0.9975586,
+      "speaker": "B"
+    },
+    {
+      "text": "changes",
+      "start": 175620,
+      "end": 176180,
+      "confidence": 0.9511719,
+      "speaker": "B"
+    },
+    {
+      "text": "and",
+      "start": 176180,
+      "end": 176540,
+      "confidence": 0.9716797,
+      "speaker": "B"
+    },
+    {
+      "text": "consequences",
+      "start": 177100,
+      "end": 177820,
+      "confidence": 0.9182617,
+      "speaker": "B"
+    },
+    {
+      "text": "mental",
+      "start": 177900,
+      "end": 178260,
+      "confidence": 0.9998372,
+      "speaker": "B"
+    },
+    {
+      "text": "health",
+      "start": 178260,
+      "end": 178460,
+      "confidence": 1.0,
+      "speaker": "B"
+    },
+    {
+      "text": "awareness",
+      "start": 178460,
+      "end": 178940,
+      "confidence": 0.9998372,
+      "speaker": "B"
+    },
+    {
+      "text": "and",
+      "start": 178940,
+      "end": 179140,
+      "confidence": 0.67089844,
+      "speaker": "B"
+    },
+    {
+      "text": "liver",
+      "start": 179140,
+      "end": 179590,
+      "confidence": 0.6945801,
+      "speaker": "B"
+    },
+    {
+      "text": "place",
+      "start": 179740,
+      "end": 179860,
+      "confidence": 0.5175781,
+      "speaker": "B"
+    },
+    {
+      "text": "ethics",
+      "start": 179860,
+      "end": 180260,
+      "confidence": 0.84977216,
+      "speaker": "B"
+    },
+    {
+      "text": "in",
+      "start": 180260,
+      "end": 180580,
+      "confidence": 0.6977539,
+      "speaker": "B"
+    },
+    {
+      "text": "business",
+      "start": 180580,
+      "end": 180940,
+      "confidence": 0.9995117,
+      "speaker": "B"
+    },
+    {
+      "text": "and",
+      "start": 180940,
+      "end": 181260,
+      "confidence": 0.99609375,
+      "speaker": "B"
+    },
+    {
+      "text": "corporate",
+      "start": 181260,
+      "end": 181660,
+      "confidence": 0.991862,
+      "speaker": "B"
+    },
+    {
+      "text": "social",
+      "start": 181660,
+      "end": 181940,
+      "confidence": 0.9995117,
+      "speaker": "B"
+    },
+    {
+      "text": "responsibility",
+      "start": 181940,
+      "end": 182540,
+      "confidence": 0.7939453,
+      "speaker": "B"
+    },
+    {
+      "text": "gender",
+      "start": 182540,
+      "end": 182980,
+      "confidence": 0.9987793,
+      "speaker": "B"
+    },
+    {
+      "text": "diversity",
+      "start": 182980,
+      "end": 183420,
+      "confidence": 0.9529622,
+      "speaker": "B"
+    },
+    {
+      "text": "and",
+      "start": 183420,
+      "end": 183660,
+      "confidence": 0.98583984,
+      "speaker": "A"
+    },
+    {
+      "text": "incline",
+      "start": 183660,
+      "end": 184220,
+      "confidence": 0.7548828,
+      "speaker": "A"
+    },
+    {
+      "text": "in",
+      "start": 185100,
+      "end": 185380,
+      "confidence": 0.9951172,
+      "speaker": "B"
+    },
+    {
+      "text": "the",
+      "start": 185380,
+      "end": 185540,
+      "confidence": 0.9980469,
+      "speaker": "B"
+    },
+    {
+      "text": "workplace",
+      "start": 185540,
+      "end": 186140,
+      "confidence": 0.99886066,
+      "speaker": "B"
+    },
+    {
+      "text": "Impact",
+      "start": 186700,
+      "end": 187100,
+      "confidence": 0.9863281,
+      "speaker": "B"
+    },
+    {
+      "text": "of",
+      "start": 187100,
+      "end": 187380,
+      "confidence": 0.9980469,
+      "speaker": "B"
+    },
+    {
+      "text": "social",
+      "start": 187380,
+      "end": 187660,
+      "confidence": 1.0,
+      "speaker": "B"
+    },
+    {
+      "text": "media",
+      "start": 187660,
+      "end": 187980,
+      "confidence": 1.0,
+      "speaker": "B"
+    },
+    {
+      "text": "on",
+      "start": 187980,
+      "end": 188220,
+      "confidence": 0.9946289,
+      "speaker": "B"
+    },
+    {
+      "text": "personal",
+      "start": 188220,
+      "end": 188500,
+      "confidence": 0.9995117,
+      "speaker": "B"
+    },
+    {
+      "text": "and",
+      "start": 188500,
+      "end": 188820,
+      "confidence": 0.6928711,
+      "speaker": "B"
+    },
+    {
+      "text": "professional",
+      "start": 188820,
+      "end": 189340,
+      "confidence": 1.0,
+      "speaker": "B"
+    },
+    {
+      "text": "life",
+      "start": 189340,
+      "end": 189620,
+      "confidence": 0.95751953,
+      "speaker": "B"
+    },
+    {
+      "text": "fake",
+      "start": 189620,
+      "end": 189940,
+      "confidence": 0.98999023,
+      "speaker": "B"
+    },
+    {
+      "text": "news",
+      "start": 189940,
+      "end": 190180,
+      "confidence": 0.5620117,
+      "speaker": "B"
+    },
+    {
+      "text": "and",
+      "start": 190180,
+      "end": 190500,
+      "confidence": 0.9321289,
+      "speaker": "B"
+    },
+    {
+      "text": "influence",
+      "start": 190500,
+      "end": 191180,
+      "confidence": 0.82385254,
+      "speaker": "B"
+    },
+    {
+      "text": "on",
+      "start": 191180,
+      "end": 191500,
+      "confidence": 0.9995117,
+      "speaker": "B"
+    },
+    {
+      "text": "public",
+      "start": 191500,
+      "end": 191900,
+      "confidence": 0.99902344,
+      "speaker": "B"
+    },
+    {
+      "text": "concern",
+      "start": 194380,
+      "end": 194780,
+      "confidence": 0.8823242,
+      "speaker": "B"
+    },
+    {
+      "text": "in",
+      "start": 194780,
+      "end": 195060,
+      "confidence": 0.56103516,
+      "speaker": "B"
+    },
+    {
+      "text": "the",
+      "start": 195060,
+      "end": 195220,
+      "confidence": 0.79589844,
+      "speaker": "B"
+    },
+    {
+      "text": "digital",
+      "start": 195220,
+      "end": 195500,
+      "confidence": 0.99853516,
+      "speaker": "B"
+    },
+    {
+      "text": "age",
+      "start": 195580,
+      "end": 195979,
+      "confidence": 0.63720703,
+      "speaker": "B"
+    },
+    {
+      "text": "and",
+      "start": 198540,
+      "end": 198900,
+      "confidence": 0.87597656,
+      "speaker": "B"
+    },
+    {
+      "text": "the",
+      "start": 198900,
+      "end": 199260,
+      "confidence": 0.90527344,
+      "speaker": "B"
+    },
+    {
+      "text": "what",
+      "start": 199420,
+      "end": 199740,
+      "confidence": 0.99316406,
+      "speaker": "B"
+    },
+    {
+      "text": "is",
+      "start": 199740,
+      "end": 199940,
+      "confidence": 0.9995117,
+      "speaker": "B"
+    },
+    {
+      "text": "the",
+      "start": 199940,
+      "end": 200100,
+      "confidence": 0.99902344,
+      "speaker": "B"
+    },
+    {
+      "text": "current",
+      "start": 200100,
+      "end": 200340,
+      "confidence": 0.99902344,
+      "speaker": "B"
+    },
+    {
+      "text": "object",
+      "start": 200340,
+      "end": 200820,
+      "confidence": 0.7224121,
+      "speaker": "B"
+    },
+    {
+      "text": "to",
+      "start": 200820,
+      "end": 201100,
+      "confidence": 0.578125,
+      "speaker": "B"
+    },
+    {
+      "text": "economic",
+      "start": 201100,
+      "end": 201420,
+      "confidence": 0.99902344,
+      "speaker": "B"
+    },
+    {
+      "text": "trends?",
+      "start": 201580,
+      "end": 202140,
+      "confidence": 0.9954427,
+      "speaker": "B"
+    },
+    {
+      "text": "Discussion",
+      "start": 202140,
+      "end": 202660,
+      "confidence": 0.9855957,
+      "speaker": "B"
+    },
+    {
+      "text": "about",
+      "start": 202660,
+      "end": 202900,
+      "confidence": 0.9868164,
+      "speaker": "A"
+    },
+    {
+      "text": "recent",
+      "start": 202900,
+      "end": 203260,
+      "confidence": 0.7705078,
+      "speaker": "B"
+    },
+    {
+      "text": "economics",
+      "start": 203340,
+      "end": 203980,
+      "confidence": 0.9970703,
+      "speaker": "B"
+    },
+    {
+      "text": "with",
+      "start": 203980,
+      "end": 204220,
+      "confidence": 0.53808594,
+      "speaker": "B"
+    },
+    {
+      "text": "development,",
+      "start": 204380,
+      "end": 204780,
+      "confidence": 0.9975586,
+      "speaker": "B"
+    },
+    {
+      "text": "physical",
+      "start": 205020,
+      "end": 205540,
+      "confidence": 0.9892578,
+      "speaker": "B"
+    },
+    {
+      "text": "policy",
+      "start": 205540,
+      "end": 205900,
+      "confidence": 0.99853516,
+      "speaker": "B"
+    },
+    {
+      "text": "or",
+      "start": 205980,
+      "end": 206300,
+      "confidence": 0.9975586,
+      "speaker": "B"
+    },
+    {
+      "text": "marketing",
+      "start": 206300,
+      "end": 206820,
+      "confidence": 0.99975586,
+      "speaker": "B"
+    },
+    {
+      "text": "trends",
+      "start": 206820,
+      "end": 207420,
+      "confidence": 0.8691406,
+      "speaker": "B"
+    },
+    {
+      "text": "Political",
+      "start": 208620,
+      "end": 208860,
+      "confidence": 0.99609375,
+      "speaker": "B"
+    },
+    {
+      "text": "issues",
+      "start": 208940,
+      "end": 209340,
+      "confidence": 0.99609375,
+      "speaker": "B"
+    },
+    {
+      "text": "Topic",
+      "start": 209420,
+      "end": 209900,
+      "confidence": 0.8964844,
+      "speaker": "B"
+    },
+    {
+      "text": "related",
+      "start": 209900,
+      "end": 210220,
+      "confidence": 0.9995117,
+      "speaker": "B"
+    },
+    {
+      "text": "to",
+      "start": 210220,
+      "end": 210620,
+      "confidence": 0.99902344,
+      "speaker": "B"
+    },
+    {
+      "text": "recent",
+      "start": 210700,
+      "end": 211100,
+      "confidence": 0.9995117,
+      "speaker": "B"
+    },
+    {
+      "text": "elections,",
+      "start": 211500,
+      "end": 212180,
+      "confidence": 0.99853516,
+      "speaker": "B"
+    },
+    {
+      "text": "government",
+      "start": 212180,
+      "end": 212540,
+      "confidence": 0.9995117,
+      "speaker": "B"
+    },
+    {
+      "text": "policies",
+      "start": 212540,
+      "end": 213140,
+      "confidence": 0.8640137,
+      "speaker": "B"
+    },
+    {
+      "text": "and",
+      "start": 213140,
+      "end": 213380,
+      "confidence": 0.9892578,
+      "speaker": "B"
+    },
+    {
+      "text": "international",
+      "start": 213380,
+      "end": 213660,
+      "confidence": 0.99902344,
+      "speaker": "B"
+    },
+    {
+      "text": "relations",
+      "start": 213980,
+      "end": 214380,
+      "confidence": 0.8666992,
+      "speaker": "B"
+    },
+    {
+      "text": "Social",
+      "start": 215260,
+      "end": 215660,
+      "confidence": 0.9995117,
+      "speaker": "B"
+    },
+    {
+      "text": "matter",
+      "start": 215660,
+      "end": 216060,
+      "confidence": 0.9926758,
+      "speaker": "B"
+    },
+    {
+      "text": "issue",
+      "start": 216060,
+      "end": 216420,
+      "confidence": 0.9316406,
+      "speaker": "B"
+    },
+    {
+      "text": "concerns",
+      "start": 216420,
+      "end": 217020,
+      "confidence": 0.91381836,
+      "speaker": "B"
+    },
+    {
+      "text": "society",
+      "start": 217020,
+      "end": 217540,
+      "confidence": 0.87719727,
+      "speaker": "B"
+    },
+    {
+      "text": "such",
+      "start": 217540,
+      "end": 217780,
+      "confidence": 1.0,
+      "speaker": "B"
+    },
+    {
+      "text": "as",
+      "start": 217780,
+      "end": 217940,
+      "confidence": 1.0,
+      "speaker": "B"
+    },
+    {
+      "text": "healthcare,",
+      "start": 217940,
+      "end": 218460,
+      "confidence": 0.89176434,
+      "speaker": "B"
+    },
+    {
+      "text": "education",
+      "start": 218460,
+      "end": 218740,
+      "confidence": 1.0,
+      "speaker": "B"
+    },
+    {
+      "text": "and",
+      "start": 218740,
+      "end": 219100,
+      "confidence": 0.53125,
+      "speaker": "B"
+    },
+    {
+      "text": "cultural",
+      "start": 219100,
+      "end": 219700,
+      "confidence": 0.9995117,
+      "speaker": "B"
+    },
+    {
+      "text": "trends.",
+      "start": 219700,
+      "end": 220300,
+      "confidence": 0.9781901,
+      "speaker": "B"
+    }
+  ],
+  "utterances": [
+    {
+      "speaker": "A",
+      "text": "Foreign.",
+      "confidence": 0.82470703,
+      "start": 153420,
+      "end": 153820,
+      "words": [
+        {
+          "text": "Foreign.",
+          "start": 153420,
+          "end": 153820,
+          "confidence": 0.82470703,
+          "speaker": "A"
+        }
+      ]
+    },
+    {
+      "speaker": "B",
+      "text": "Topic placement Impact of technology on society the course and cons of remote work, climate changes and consequences mental health awareness and liver place ethics in business and corporate social responsibility gender diversity",
+      "confidence": 0.8802443,
+      "start": 169340,
+      "end": 183420,
+      "words": [
+        {
+          "text": "Topic",
+          "start": 169340,
+          "end": 169900,
+          "confidence": 0.95581055,
+          "speaker": "B"
+        },
+        {
+          "text": "placement",
+          "start": 169900,
+          "end": 170620,
+          "confidence": 0.7114258,
+          "speaker": "B"
+        },
+        {
+          "text": "Impact",
+          "start": 171340,
+          "end": 171700,
+          "confidence": 0.97216797,
+          "speaker": "B"
+        },
+        {
+          "text": "of",
+          "start": 171700,
+          "end": 171980,
+          "confidence": 0.9995117,
+          "speaker": "B"
+        },
+        {
+          "text": "technology",
+          "start": 171980,
+          "end": 172300,
+          "confidence": 1.0,
+          "speaker": "B"
+        },
+        {
+          "text": "on",
+          "start": 172300,
+          "end": 172620,
+          "confidence": 0.8354492,
+          "speaker": "B"
+        },
+        {
+          "text": "society",
+          "start": 172620,
+          "end": 173060,
+          "confidence": 0.998291,
+          "speaker": "B"
+        },
+        {
+          "text": "the",
+          "start": 173060,
+          "end": 173340,
+          "confidence": 0.6816406,
+          "speaker": "B"
+        },
+        {
+          "text": "course",
+          "start": 173340,
+          "end": 173620,
+          "confidence": 0.37670898,
+          "speaker": "B"
+        },
+        {
+          "text": "and",
+          "start": 173620,
+          "end": 173940,
+          "confidence": 0.57177734,
+          "speaker": "B"
+        },
+        {
+          "text": "cons",
+          "start": 173940,
+          "end": 174260,
+          "confidence": 0.97558594,
+          "speaker": "B"
+        },
+        {
+          "text": "of",
+          "start": 174260,
+          "end": 174500,
+          "confidence": 0.9941406,
+          "speaker": "B"
+        },
+        {
+          "text": "remote",
+          "start": 174500,
+          "end": 174980,
+          "confidence": 0.98860675,
+          "speaker": "B"
+        },
+        {
+          "text": "work,",
+          "start": 174980,
+          "end": 175220,
+          "confidence": 0.98535156,
+          "speaker": "B"
+        },
+        {
+          "text": "climate",
+          "start": 175220,
+          "end": 175620,
+          "confidence": 0.9975586,
+          "speaker": "B"
+        },
+        {
+          "text": "changes",
+          "start": 175620,
+          "end": 176180,
+          "confidence": 0.9511719,
+          "speaker": "B"
+        },
+        {
+          "text": "and",
+          "start": 176180,
+          "end": 176540,
+          "confidence": 0.9716797,
+          "speaker": "B"
+        },
+        {
+          "text": "consequences",
+          "start": 177100,
+          "end": 177820,
+          "confidence": 0.9182617,
+          "speaker": "B"
+        },
+        {
+          "text": "mental",
+          "start": 177900,
+          "end": 178260,
+          "confidence": 0.9998372,
+          "speaker": "B"
+        },
+        {
+          "text": "health",
+          "start": 178260,
+          "end": 178460,
+          "confidence": 1.0,
+          "speaker": "B"
+        },
+        {
+          "text": "awareness",
+          "start": 178460,
+          "end": 178940,
+          "confidence": 0.9998372,
+          "speaker": "B"
+        },
+        {
+          "text": "and",
+          "start": 178940,
+          "end": 179140,
+          "confidence": 0.67089844,
+          "speaker": "B"
+        },
+        {
+          "text": "liver",
+          "start": 179140,
+          "end": 179590,
+          "confidence": 0.6945801,
+          "speaker": "B"
+        },
+        {
+          "text": "place",
+          "start": 179740,
+          "end": 179860,
+          "confidence": 0.5175781,
+          "speaker": "B"
+        },
+        {
+          "text": "ethics",
+          "start": 179860,
+          "end": 180260,
+          "confidence": 0.84977216,
+          "speaker": "B"
+        },
+        {
+          "text": "in",
+          "start": 180260,
+          "end": 180580,
+          "confidence": 0.6977539,
+          "speaker": "B"
+        },
+        {
+          "text": "business",
+          "start": 180580,
+          "end": 180940,
+          "confidence": 0.9995117,
+          "speaker": "B"
+        },
+        {
+          "text": "and",
+          "start": 180940,
+          "end": 181260,
+          "confidence": 0.99609375,
+          "speaker": "B"
+        },
+        {
+          "text": "corporate",
+          "start": 181260,
+          "end": 181660,
+          "confidence": 0.991862,
+          "speaker": "B"
+        },
+        {
+          "text": "social",
+          "start": 181660,
+          "end": 181940,
+          "confidence": 0.9995117,
+          "speaker": "B"
+        },
+        {
+          "text": "responsibility",
+          "start": 181940,
+          "end": 182540,
+          "confidence": 0.7939453,
+          "speaker": "B"
+        },
+        {
+          "text": "gender",
+          "start": 182540,
+          "end": 182980,
+          "confidence": 0.9987793,
+          "speaker": "B"
+        },
+        {
+          "text": "diversity",
+          "start": 182980,
+          "end": 183420,
+          "confidence": 0.9529622,
+          "speaker": "B"
+        }
+      ]
+    },
+    {
+      "speaker": "A",
+      "text": "and incline",
+      "confidence": 0.8703613,
+      "start": 183420,
+      "end": 184220,
+      "words": [
+        {
+          "text": "and",
+          "start": 183420,
+          "end": 183660,
+          "confidence": 0.98583984,
+          "speaker": "A"
+        },
+        {
+          "text": "incline",
+          "start": 183660,
+          "end": 184220,
+          "confidence": 0.7548828,
+          "speaker": "A"
+        }
+      ]
+    },
+    {
+      "speaker": "B",
+      "text": "in the workplace Impact of social media on personal and professional life fake news and influence on public concern in the digital age and the what is the current object to economic trends? Discussion",
+      "confidence": 0.9075006,
+      "start": 185100,
+      "end": 202660,
+      "words": [
+        {
+          "text": "in",
+          "start": 185100,
+          "end": 185380,
+          "confidence": 0.9951172,
+          "speaker": "B"
+        },
+        {
+          "text": "the",
+          "start": 185380,
+          "end": 185540,
+          "confidence": 0.9980469,
+          "speaker": "B"
+        },
+        {
+          "text": "workplace",
+          "start": 185540,
+          "end": 186140,
+          "confidence": 0.99886066,
+          "speaker": "B"
+        },
+        {
+          "text": "Impact",
+          "start": 186700,
+          "end": 187100,
+          "confidence": 0.9863281,
+          "speaker": "B"
+        },
+        {
+          "text": "of",
+          "start": 187100,
+          "end": 187380,
+          "confidence": 0.9980469,
+          "speaker": "B"
+        },
+        {
+          "text": "social",
+          "start": 187380,
+          "end": 187660,
+          "confidence": 1.0,
+          "speaker": "B"
+        },
+        {
+          "text": "media",
+          "start": 187660,
+          "end": 187980,
+          "confidence": 1.0,
+          "speaker": "B"
+        },
+        {
+          "text": "on",
+          "start": 187980,
+          "end": 188220,
+          "confidence": 0.9946289,
+          "speaker": "B"
+        },
+        {
+          "text": "personal",
+          "start": 188220,
+          "end": 188500,
+          "confidence": 0.9995117,
+          "speaker": "B"
+        },
+        {
+          "text": "and",
+          "start": 188500,
+          "end": 188820,
+          "confidence": 0.6928711,
+          "speaker": "B"
+        },
+        {
+          "text": "professional",
+          "start": 188820,
+          "end": 189340,
+          "confidence": 1.0,
+          "speaker": "B"
+        },
+        {
+          "text": "life",
+          "start": 189340,
+          "end": 189620,
+          "confidence": 0.95751953,
+          "speaker": "B"
+        },
+        {
+          "text": "fake",
+          "start": 189620,
+          "end": 189940,
+          "confidence": 0.98999023,
+          "speaker": "B"
+        },
+        {
+          "text": "news",
+          "start": 189940,
+          "end": 190180,
+          "confidence": 0.5620117,
+          "speaker": "B"
+        },
+        {
+          "text": "and",
+          "start": 190180,
+          "end": 190500,
+          "confidence": 0.9321289,
+          "speaker": "B"
+        },
+        {
+          "text": "influence",
+          "start": 190500,
+          "end": 191180,
+          "confidence": 0.82385254,
+          "speaker": "B"
+        },
+        {
+          "text": "on",
+          "start": 191180,
+          "end": 191500,
+          "confidence": 0.9995117,
+          "speaker": "B"
+        },
+        {
+          "text": "public",
+          "start": 191500,
+          "end": 191900,
+          "confidence": 0.99902344,
+          "speaker": "B"
+        },
+        {
+          "text": "concern",
+          "start": 194380,
+          "end": 194780,
+          "confidence": 0.8823242,
+          "speaker": "B"
+        },
+        {
+          "text": "in",
+          "start": 194780,
+          "end": 195060,
+          "confidence": 0.56103516,
+          "speaker": "B"
+        },
+        {
+          "text": "the",
+          "start": 195060,
+          "end": 195220,
+          "confidence": 0.79589844,
+          "speaker": "B"
+        },
+        {
+          "text": "digital",
+          "start": 195220,
+          "end": 195500,
+          "confidence": 0.99853516,
+          "speaker": "B"
+        },
+        {
+          "text": "age",
+          "start": 195580,
+          "end": 195979,
+          "confidence": 0.63720703,
+          "speaker": "B"
+        },
+        {
+          "text": "and",
+          "start": 198540,
+          "end": 198900,
+          "confidence": 0.87597656,
+          "speaker": "B"
+        },
+        {
+          "text": "the",
+          "start": 198900,
+          "end": 199260,
+          "confidence": 0.90527344,
+          "speaker": "B"
+        },
+        {
+          "text": "what",
+          "start": 199420,
+          "end": 199740,
+          "confidence": 0.99316406,
+          "speaker": "B"
+        },
+        {
+          "text": "is",
+          "start": 199740,
+          "end": 199940,
+          "confidence": 0.9995117,
+          "speaker": "B"
+        },
+        {
+          "text": "the",
+          "start": 199940,
+          "end": 200100,
+          "confidence": 0.99902344,
+          "speaker": "B"
+        },
+        {
+          "text": "current",
+          "start": 200100,
+          "end": 200340,
+          "confidence": 0.99902344,
+          "speaker": "B"
+        },
+        {
+          "text": "object",
+          "start": 200340,
+          "end": 200820,
+          "confidence": 0.7224121,
+          "speaker": "B"
+        },
+        {
+          "text": "to",
+          "start": 200820,
+          "end": 201100,
+          "confidence": 0.578125,
+          "speaker": "B"
+        },
+        {
+          "text": "economic",
+          "start": 201100,
+          "end": 201420,
+          "confidence": 0.99902344,
+          "speaker": "B"
+        },
+        {
+          "text": "trends?",
+          "start": 201580,
+          "end": 202140,
+          "confidence": 0.9954427,
+          "speaker": "B"
+        },
+        {
+          "text": "Discussion",
+          "start": 202140,
+          "end": 202660,
+          "confidence": 0.9855957,
+          "speaker": "B"
+        }
+      ]
+    },
+    {
+      "speaker": "A",
+      "text": "about",
+      "confidence": 0.9868164,
+      "start": 202660,
+      "end": 202900,
+      "words": [
+        {
+          "text": "about",
+          "start": 202660,
+          "end": 202900,
+          "confidence": 0.9868164,
+          "speaker": "A"
+        }
+      ]
+    },
+    {
+      "speaker": "B",
+      "text": "recent economics with development, physical policy or marketing trends Political issues Topic related to recent elections, government policies and international relations Social matter issue concerns society such as healthcare, education and cultural trends.",
+      "confidence": 0.9356603,
+      "start": 202900,
+      "end": 220300,
+      "words": [
+        {
+          "text": "recent",
+          "start": 202900,
+          "end": 203260,
+          "confidence": 0.7705078,
+          "speaker": "B"
+        },
+        {
+          "text": "economics",
+          "start": 203340,
+          "end": 203980,
+          "confidence": 0.9970703,
+          "speaker": "B"
+        },
+        {
+          "text": "with",
+          "start": 203980,
+          "end": 204220,
+          "confidence": 0.53808594,
+          "speaker": "B"
+        },
+        {
+          "text": "development,",
+          "start": 204380,
+          "end": 204780,
+          "confidence": 0.9975586,
+          "speaker": "B"
+        },
+        {
+          "text": "physical",
+          "start": 205020,
+          "end": 205540,
+          "confidence": 0.9892578,
+          "speaker": "B"
+        },
+        {
+          "text": "policy",
+          "start": 205540,
+          "end": 205900,
+          "confidence": 0.99853516,
+          "speaker": "B"
+        },
+        {
+          "text": "or",
+          "start": 205980,
+          "end": 206300,
+          "confidence": 0.9975586,
+          "speaker": "B"
+        },
+        {
+          "text": "marketing",
+          "start": 206300,
+          "end": 206820,
+          "confidence": 0.99975586,
+          "speaker": "B"
+        },
+        {
+          "text": "trends",
+          "start": 206820,
+          "end": 207420,
+          "confidence": 0.8691406,
+          "speaker": "B"
+        },
+        {
+          "text": "Political",
+          "start": 208620,
+          "end": 208860,
+          "confidence": 0.99609375,
+          "speaker": "B"
+        },
+        {
+          "text": "issues",
+          "start": 208940,
+          "end": 209340,
+          "confidence": 0.99609375,
+          "speaker": "B"
+        },
+        {
+          "text": "Topic",
+          "start": 209420,
+          "end": 209900,
+          "confidence": 0.8964844,
+          "speaker": "B"
+        },
+        {
+          "text": "related",
+          "start": 209900,
+          "end": 210220,
+          "confidence": 0.9995117,
+          "speaker": "B"
+        },
+        {
+          "text": "to",
+          "start": 210220,
+          "end": 210620,
+          "confidence": 0.99902344,
+          "speaker": "B"
+        },
+        {
+          "text": "recent",
+          "start": 210700,
+          "end": 211100,
+          "confidence": 0.9995117,
+          "speaker": "B"
+        },
+        {
+          "text": "elections,",
+          "start": 211500,
+          "end": 212180,
+          "confidence": 0.99853516,
+          "speaker": "B"
+        },
+        {
+          "text": "government",
+          "start": 212180,
+          "end": 212540,
+          "confidence": 0.9995117,
+          "speaker": "B"
+        },
+        {
+          "text": "policies",
+          "start": 212540,
+          "end": 213140,
+          "confidence": 0.8640137,
+          "speaker": "B"
+        },
+        {
+          "text": "and",
+          "start": 213140,
+          "end": 213380,
+          "confidence": 0.9892578,
+          "speaker": "B"
+        },
+        {
+          "text": "international",
+          "start": 213380,
+          "end": 213660,
+          "confidence": 0.99902344,
+          "speaker": "B"
+        },
+        {
+          "text": "relations",
+          "start": 213980,
+          "end": 214380,
+          "confidence": 0.8666992,
+          "speaker": "B"
+        },
+        {
+          "text": "Social",
+          "start": 215260,
+          "end": 215660,
+          "confidence": 0.9995117,
+          "speaker": "B"
+        },
+        {
+          "text": "matter",
+          "start": 215660,
+          "end": 216060,
+          "confidence": 0.9926758,
+          "speaker": "B"
+        },
+        {
+          "text": "issue",
+          "start": 216060,
+          "end": 216420,
+          "confidence": 0.9316406,
+          "speaker": "B"
+        },
+        {
+          "text": "concerns",
+          "start": 216420,
+          "end": 217020,
+          "confidence": 0.91381836,
+          "speaker": "B"
+        },
+        {
+          "text": "society",
+          "start": 217020,
+          "end": 217540,
+          "confidence": 0.87719727,
+          "speaker": "B"
+        },
+        {
+          "text": "such",
+          "start": 217540,
+          "end": 217780,
+          "confidence": 1.0,
+          "speaker": "B"
+        },
+        {
+          "text": "as",
+          "start": 217780,
+          "end": 217940,
+          "confidence": 1.0,
+          "speaker": "B"
+        },
+        {
+          "text": "healthcare,",
+          "start": 217940,
+          "end": 218460,
+          "confidence": 0.89176434,
+          "speaker": "B"
+        },
+        {
+          "text": "education",
+          "start": 218460,
+          "end": 218740,
+          "confidence": 1.0,
+          "speaker": "B"
+        },
+        {
+          "text": "and",
+          "start": 218740,
+          "end": 219100,
+          "confidence": 0.53125,
+          "speaker": "B"
+        },
+        {
+          "text": "cultural",
+          "start": 219100,
+          "end": 219700,
+          "confidence": 0.9995117,
+          "speaker": "B"
+        },
+        {
+          "text": "trends.",
+          "start": 219700,
+          "end": 220300,
+          "confidence": 0.9781901,
+          "speaker": "B"
+        }
+      ]
+    }
+  ],
+  "confidence": 0.90703964,
+  "audio_duration": 229,
+  "punctuate": true,
+  "format_text": true,
+  "dual_channel": false,
+  "webhook_url": null,
+  "webhook_status_code": null,
+  "webhook_auth": false,
+  "webhook_auth_header_name": null,
+  "speed_boost": false,
+  "auto_highlights_result": null,
+  "auto_highlights": false,
+  "audio_start_from": null,
+  "audio_end_at": null,
+  "word_boost": [],
+  "boost_param": null,
+  "prompt": null,
+  "keyterms_prompt": [],
+  "filter_profanity": false,
+  "redact_pii": false,
+  "redact_pii_audio": false,
+  "redact_pii_audio_quality": null,
+  "redact_pii_audio_options": null,
+  "redact_pii_policies": null,
+  "redact_pii_sub": null,
+  "speaker_labels": true,
+  "speaker_options": null,
+  "content_safety": false,
+  "iab_categories": false,
+  "content_safety_labels": {
+    "status": "unavailable",
+    "results": [],
+    "summary": {}
+  },
+  "iab_categories_result": {
+    "status": "unavailable",
+    "results": [],
+    "summary": {}
+  },
+  "language_detection": true,
+  "language_detection_options": null,
+  "language_detection_results": null,
+  "language_confidence_threshold": null,
+  "language_confidence": 0.6934,
+  "custom_spelling": null,
+  "throttled": false,
+  "auto_chapters": false,
+  "summarization": false,
+  "summary_type": null,
+  "summary_model": null,
+  "custom_topics": false,
+  "topics": [],
+  "speech_threshold": null,
+  "speech_model": null,
+  "speech_models": [
+    "universal-2"
+  ],
+  "speech_model_used": "universal-2",
+  "temperature": null,
+  "remove_audio_tags": null,
+  "chapters": null,
+  "disfluencies": false,
+  "entity_detection": false,
+  "sentiment_analysis": false,
+  "sentiment_analysis_results": null,
+  "entities": null,
+  "speakers_expected": null,
+  "summary": null,
+  "custom_topics_results": null,
+  "is_deleted": null,
+  "multichannel": null,
+  "project_id": 1727445,
+  "token_id": 1748563
+}

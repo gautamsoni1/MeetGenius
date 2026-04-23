@@ -52,5 +52,11 @@
     "scheduled_at": "2026-04-22T19:10:00",
     "user_id": "b9c2f13b-941a-4e3e-a29f-a2a20bf95f41",
     "status": "done"
+  },
+  "it4frjqh56f1i53c0220lq8t88": {
+    "meeting_url": "https://meet.google.com/jxs-ietp-rkt",
+    "scheduled_at": "2026-04-23T14:28:00",
+    "user_id": "4bc35f52-bdcb-49b8-8bc3-8d059d17409c",
+    "status": "done"
   }
 }

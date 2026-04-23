@@ -54,14 +54,191 @@ def extract_time_from_text(text):
 # =========================
 # MAIN PARSER
 # =========================
+# def parse_meeting(user_id, text: str):
+
+#     history = build_chat_context(user_id)
+
+#     messages = [{
+#         "role": "system",
+#         "content": """
+# Return ONLY JSON:
+# {
+#   "title": "",
+#   "date": "",
+#   "time": "",
+#   "relative": "",
+#   "duration": 30
+# }
+# """
+#     }]
+
+#     messages.extend(history)
+#     messages.append({"role": "user", "content": text})
+
+#     res = client.chat.completions.create(
+#         model="llama-3.1-8b-instant",
+#         messages=messages
+#     )
+
+#     raw = res.choices[0].message.content
+#     print("🧠 LLM RAW:", raw)
+
+#     data = safe_json_extract(raw)
+
+#     if not data:
+#         return None
+
+#     # ✅ Use timezone-safe current time
+#     now = datetime.now(timezone.utc).astimezone()
+#     text_lower = text.lower()
+
+#     # =========================
+#     # FORCE DATE (USER PRIORITY)
+#     # =========================
+#     if "today" in text_lower:
+#         data["date"] = now.strftime("%Y-%m-%d")
+
+#     elif "tomorrow" in text_lower:
+#         data["date"] = (now + timedelta(days=1)).strftime("%Y-%m-%d")
+
+#     # =========================
+#     # FIX WRONG YEAR (🔥)
+#     # =========================
+#     try:
+#         if data.get("date"):
+#             year = int(data["date"].split("-")[0])
+#             current_year = now.year
+
+#             if year < current_year:
+#                 data["date"] = data["date"].replace(str(year), str(current_year))
+#     except Exception as e:
+#         print("❌ Year fix error:", e)
+
+#     # =========================
+#     # FORCE TIME (HIGHEST PRIORITY)
+#     # =========================
+#     user_time = extract_time_from_text(text)
+#     if user_time:
+#         data["time"] = user_time
+
+#     # =========================
+#     # HANDLE "NOW"
+#     # =========================
+#     if "now" in text_lower:
+#         data["date"] = now.strftime("%Y-%m-%d")
+#         data["time"] = now.strftime("%H:%M")
+#         print("✅ FINAL PARSED DATA:", data)
+#         return data
+
+#     # =========================
+#     # APPLY RELATIVE (ONLY IF NO USER TIME)
+#     # =========================
+#     if data.get("relative") and not user_time:
+
+#         rel = data["relative"].lower()
+#         temp = now
+
+#         try:
+#             if "min" in rel:
+#                 n = int(re.findall(r"\d+", rel)[0])
+#                 temp += timedelta(minutes=n)
+
+#             elif "hour" in rel:
+#                 n = int(re.findall(r"\d+", rel)[0])
+#                 temp += timedelta(hours=n)
+
+#             elif "day" in rel:
+#                 n = int(re.findall(r"\d+", rel)[0])
+#                 temp += timedelta(days=n)
+
+#             elif "tomorrow" in rel:
+#                 temp += timedelta(days=1)
+
+#             data["date"] = temp.strftime("%Y-%m-%d")
+#             data["time"] = temp.strftime("%H:%M")
+
+#         except Exception as e:
+#             print("❌ Relative parsing error:", e)
+
+#     # =========================
+#     # DEFAULT TIME
+#     # =========================
+#     if not data.get("time"):
+#         data["time"] = "10:00"
+
+#     # =========================
+#     # PREVENT PAST TIME (🔥 CRITICAL FIX)
+#     # =========================
+#     try:
+#         meeting_dt = datetime.strptime(
+#             f"{data['date']} {data['time']}",
+#             "%Y-%m-%d %H:%M"
+#         )
+
+#         if meeting_dt < now.replace(tzinfo=None):
+#             print("⚠️ Past time detected → shifting to next valid time")
+
+#             meeting_dt = now + timedelta(minutes=2)
+
+#             data["date"] = meeting_dt.strftime("%Y-%m-%d")
+#             data["time"] = meeting_dt.strftime("%H:%M")
+
+#     except Exception as e:
+#         print("❌ Time validation error:", e)
+
+#     print("✅ FINAL PARSED DATA:", data)
+
+#     return data
+
+
+
+
+
 def parse_meeting(user_id, text: str):
 
+    now = datetime.now(timezone.utc).astimezone()
+    text_lower = text.lower()
+
+    # =========================
+    # 🔥 STEP 1: EXTRACT USER TIME (HIGHEST PRIORITY)
+    # =========================
+    user_time = extract_time_from_text(text)
+
+    # =========================
+    # 🔥 STEP 2: EXTRACT USER DATE
+    # =========================
+    user_date = None
+
+    if "today" in text_lower:
+        user_date = now.strftime("%Y-%m-%d")
+
+    elif "tomorrow" in text_lower:
+        user_date = (now + timedelta(days=1)).strftime("%Y-%m-%d")
+
+    # =========================
+    # 🔥 STEP 3: IF BOTH FOUND → SKIP LLM
+    # =========================
+    if user_time and user_date:
+
+        data = {
+            "title": "Scheduled Meeting",
+            "date": user_date,
+            "time": user_time,
+            "duration": 30
+        }
+
+        print("✅ DIRECT USER PARSED:", data)
+        return data
+
+    # =========================
+    # 🔥 STEP 4: FALLBACK TO LLM
+    # =========================
     history = build_chat_context(user_id)
 
     messages = [{
         "role": "system",
         "content": """
-Return ONLY JSON:
+Return ONLY valid JSON:
 {
   "title": "",
   "date": "",
@@ -88,77 +265,22 @@ Return ONLY JSON:
     if not data:
         return None
 
-    # ✅ Use timezone-safe current time
-    now = datetime.now(timezone.utc).astimezone()
-    text_lower = text.lower()
+    # =========================
+    # 🔥 FORCE USER VALUES (OVERRIDE LLM)
+    # =========================
+    if user_date:
+        data["date"] = user_date
 
-    # =========================
-    # FORCE DATE (USER PRIORITY)
-    # =========================
-    if "today" in text_lower:
-        data["date"] = now.strftime("%Y-%m-%d")
-
-    elif "tomorrow" in text_lower:
-        data["date"] = (now + timedelta(days=1)).strftime("%Y-%m-%d")
-
-    # =========================
-    # FIX WRONG YEAR (🔥)
-    # =========================
-    try:
-        if data.get("date"):
-            year = int(data["date"].split("-")[0])
-            current_year = now.year
-
-            if year < current_year:
-                data["date"] = data["date"].replace(str(year), str(current_year))
-    except Exception as e:
-        print("❌ Year fix error:", e)
-
-    # =========================
-    # FORCE TIME (HIGHEST PRIORITY)
-    # =========================
-    user_time = extract_time_from_text(text)
     if user_time:
         data["time"] = user_time
 
     # =========================
-    # HANDLE "NOW"
+    # HANDLE NOW
     # =========================
     if "now" in text_lower:
         data["date"] = now.strftime("%Y-%m-%d")
         data["time"] = now.strftime("%H:%M")
-        print("✅ FINAL PARSED DATA:", data)
         return data
-
-    # =========================
-    # APPLY RELATIVE (ONLY IF NO USER TIME)
-    # =========================
-    if data.get("relative") and not user_time:
-
-        rel = data["relative"].lower()
-        temp = now
-
-        try:
-            if "min" in rel:
-                n = int(re.findall(r"\d+", rel)[0])
-                temp += timedelta(minutes=n)
-
-            elif "hour" in rel:
-                n = int(re.findall(r"\d+", rel)[0])
-                temp += timedelta(hours=n)
-
-            elif "day" in rel:
-                n = int(re.findall(r"\d+", rel)[0])
-                temp += timedelta(days=n)
-
-            elif "tomorrow" in rel:
-                temp += timedelta(days=1)
-
-            data["date"] = temp.strftime("%Y-%m-%d")
-            data["time"] = temp.strftime("%H:%M")
-
-        except Exception as e:
-            print("❌ Relative parsing error:", e)
 
     # =========================
     # DEFAULT TIME
@@ -167,7 +289,7 @@ Return ONLY JSON:
         data["time"] = "10:00"
 
     # =========================
-    # PREVENT PAST TIME (🔥 CRITICAL FIX)
+    # PREVENT PAST TIME
     # =========================
     try:
         meeting_dt = datetime.strptime(
@@ -176,8 +298,6 @@ Return ONLY JSON:
         )
 
         if meeting_dt < now.replace(tzinfo=None):
-            print("⚠️ Past time detected → shifting to next valid time")
-
             meeting_dt = now + timedelta(minutes=2)
 
             data["date"] = meeting_dt.strftime("%Y-%m-%d")
