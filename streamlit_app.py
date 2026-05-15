@@ -1,101 +1,148 @@
 import streamlit as st
 import requests
-
-
-query_params = st.query_params
-
-if "user_id" in query_params:
-    st.session_state.user_id = query_params["user_id"]
-
-if "email" in query_params:
-    st.session_state.email = query_params["email"]
-
-API_URL = "https://stimulatingly-glumpier-hannelore.ngrok-free.dev/chat"
-# LOGIN_URL = "https://stimulatingly-glumpier-hannelore.ngrok-free.dev/auth/login?user_id=123"
-LOGIN_URL = "https://stimulatingly-glumpier-hannelore.ngrok-free.dev/auth/login"
-
-st.set_page_config(page_title="AI Meeting Bot", layout="centered")
+import os
+from dotenv import load_dotenv
+import webbrowser
+import speech_recognition as sr
 
 # =========================
-# HEADER
+# LOAD ENV
 # =========================
+load_dotenv()
 
-if "email" in st.session_state:
-    st.success(f"✅ Logged in as: {st.session_state.email}")
-    
-st.title("🤖 AI Meeting Scheduler Bot")
+BASE_URL = os.getenv("NGROK_URL")
+API_URL = f"{BASE_URL}/chat"
+LOGIN_URL = f"{BASE_URL}/auth/login"
 
-st.markdown("### Step 1: Login with Google")
-st.markdown(f"[🔐 Click to Login]({LOGIN_URL})")
-
-st.divider()
+# =========================
+# PAGE CONFIG
+# =========================
+st.set_page_config(page_title="Meeting Bot", layout="wide")
 
 # =========================
 # SESSION STATE
 # =========================
-if "chat" not in st.session_state:
-    st.session_state.chat = []
+if "user_id" not in st.session_state:
+    st.session_state.user_id = None
+
+if "chat_history" not in st.session_state:
+    st.session_state.chat_history = []
+
+if "mode" not in st.session_state:
+    st.session_state.mode = "text"
+
+recognizer = sr.Recognizer()
 
 # =========================
-# SHOW CHAT
+# SIDEBAR
 # =========================
-for msg in st.session_state.chat:
-    with st.chat_message(msg["role"]):
-        st.write(msg["content"])
+st.sidebar.title("⚙️ Settings")
+
+if st.sidebar.button("🔐 Login"):
+    webbrowser.open(LOGIN_URL)
+    st.sidebar.success("Login page opened!")
+
+user_id_input = st.sidebar.text_input("Enter User ID")
+
+if st.sidebar.button("✅ Confirm User"):
+    if user_id_input:
+        st.session_state.user_id = user_id_input
+        st.sidebar.success("Logged in!")
+    else:
+        st.sidebar.error("Enter valid user ID")
+
+# Mode selection
+mode = st.sidebar.radio("Input Mode", ["Text", "Voice"])
+st.session_state.mode = mode.lower()
 
 # =========================
-# INPUT
+# MAIN UI
 # =========================
-user_input = st.chat_input("Type your message")
+st.title("🤖 MeetGenius")
 
-if user_input:
-
-    # Show user message instantly
-    st.session_state.chat.append({"role": "user", "content": user_input})
-
-    with st.chat_message("user"):
-        st.write(user_input)
-
+# =========================
+# VOICE FUNCTION
+# =========================
+def get_voice_input():
     try:
-        res = requests.post(
-            API_URL,
-            json={
-                "user_id": st.session_state.get("user_id"),
-                "message": user_input
-            }
-        )
+        with sr.Microphone() as source:
+            st.info("🎤 Listening...")
+            recognizer.adjust_for_ambient_noise(source, duration=1)
+            audio = recognizer.listen(source, timeout=10, phrase_time_limit=15)
 
-        data = res.json()
+        text = recognizer.recognize_google(audio)
+        return text
 
-        bot_message = ""
+    except Exception:
+        st.error("Voice input failed")
+        return None
 
-        # ✅ Meeting link
-        if "meeting_url" in data:
-            bot_message += f"📅 Meeting Created!\n\n🔗 {data['meeting_url']}\n\n"
+# =========================
+# CHAT DISPLAY
+# =========================
+for chat in st.session_state.chat_history:
+    with st.chat_message(chat["role"]):
+        st.markdown(chat["content"])
 
-        # ✅ Main message
-        if "message" in data:
-            bot_message += data["message"]
+# =========================
+# INPUT SECTION
+# =========================
+if st.session_state.user_id:
 
-        if "reply" in data:
-            bot_message += data["reply"]
+    if st.session_state.mode == "text":
+        user_input = st.chat_input("Type your message...")
+    else:
+        if st.button("🎤 Speak"):
+            user_input = get_voice_input()
+            if user_input:
+                st.success(f"You: {user_input}")
+        else:
+            user_input = None
 
-        # ✅ PDF link
-        if "pdf_url" in data:
-            bot_message += f"\n\n📄 [View Report]({data['pdf_url']})"
+    if user_input:
 
-        # ✅ Error
-        if "error" in data:
-            bot_message = data["error"]
+        # Add user message
+        st.session_state.chat_history.append({
+            "role": "user",
+            "content": user_input
+        })
 
-        if not bot_message:
-            bot_message = "⚠️ No response from server"
+        with st.chat_message("user"):
+            st.markdown(user_input)
 
-    except Exception as e:
-        bot_message = f"❌ Error: {str(e)}"
+        # =========================
+        # API CALL
+        # =========================
+        try:
+            res = requests.post(
+                API_URL,
+                json={
+                    "user_id": st.session_state.user_id,
+                    "message": user_input
+                },
+                timeout=60
+            )
 
-    # Save bot response
-    st.session_state.chat.append({"role": "assistant", "content": bot_message})
+            response = res.json()
+            bot_msg = response.get("message", "No response")
 
-    with st.chat_message("assistant"):
-        st.write(bot_message)
+        except Exception as e:
+            bot_msg = f"❌ API Error: {e}"
+
+        # Add bot response
+        st.session_state.chat_history.append({
+            "role": "assistant",
+            "content": bot_msg
+        })
+
+        with st.chat_message("assistant"):
+            st.markdown(bot_msg)
+
+else:
+    st.warning("⚠️ Please login and enter user ID from sidebar")
+
+# =========================
+# CLEAR CHAT
+# =========================
+if st.sidebar.button("🗑 Clear Chat"):
+    st.session_state.chat_history = []

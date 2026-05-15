@@ -8,6 +8,7 @@ from dotenv import load_dotenv
 from services.audio_to_json import transcribe_by_bot_id
 from services.json_to_summary import json_to_summary
 from services.report_generator import json_to_pdf
+from services.participants_tracker import build_participants_with_time
 from db.mongo import report_collection
 
 load_dotenv()
@@ -30,7 +31,7 @@ def create_bot(meeting_url, google_calendar_event_id=None):
             "audio_mixed_mp3": {}
         }
     }
-    
+
     if google_calendar_event_id:
         payload["calendar_event_id"] = google_calendar_event_id
 
@@ -65,56 +66,21 @@ def get_mp3_url(bot_id):
 
 
 # =========================
-# PARTICIPANTS (FIXED)
-# =========================
-
-def extract_participants(bot_id):
-    try:
-        r = requests.get(
-            f"{BASE_URL}/bot/{bot_id}/",
-            headers={"Authorization": RECALL_API_KEY}
-        )
-
-        data = r.json()
-
-        participants = []
-
-        raw = data.get("participants", [])
-
-        for p in raw:
-            participants.append({
-                "name": p.get("name") or "Unknown",
-                "join_time": p.get("join_time"),
-                "leave_time": p.get("leave_time"),
-                "duration": p.get("duration") or None
-            })
-
-        return participants
-
-    except Exception as e:
-        print("Participant fetch error:", e)
-        return []
-
-
-# =========================
 # MAIN RECORD FUNCTION
 # =========================
 def record(meeting_url, meeting_id=None, user_id=None):
 
+    # 🔹 Step 1: Create bot
     bot_id = create_bot(meeting_url)
 
-    # =========================
-    # WAIT FOR AUDIO
-    # =========================
+    # 🔹 Step 2: Wait for recording
     while True:
         mp3 = get_mp3_url(bot_id)
         if mp3:
             break
         time.sleep(10)
 
-    # =========================
-    # DOWNLOAD AUDIO
-    # =========================
+    # 🔹 Step 3: Download audio
     path = os.path.join(RECORDINGS_DIR, f"{bot_id}.mp3")
 
     with requests.get(mp3, stream=True) as r:
@@ -123,25 +89,22 @@ def record(meeting_url, meeting_id=None, user_id=None):
             for chunk in r.iter_content(1024):
                 f.write(chunk)
 
-    # =========================
-    # TRANSCRIPTION
-    # =========================
+    # 🔹 Step 4: Convert audio → transcript
     json_path = asyncio.run(transcribe_by_bot_id(bot_id))
-    summary = json_to_summary(json_path)
 
-    # =========================
-    # PDF GENERATION
-    # =========================
-    pdf_path = json_to_pdf(summary, filename=f"{meeting_id}.pdf")
+    # 🔹 Step 5: Extract filename (CORRECT)
+    audio_filename = os.path.basename(path)
 
-    # =========================
-    # PARTICIPANTS (FINAL FIXED)
-    # =========================
-    participants = extract_participants(bot_id)
+    # 🔹 Step 6: Generate AI report (ONLY ONCE)
+    report = json_to_summary(json_path, audio_filename)
 
-    # =========================
-    # SAVE TO DB
-    # =========================
+    # 🔹 Step 7: Generate PDF
+    pdf_path = json_to_pdf(report, filename=f"{meeting_id}.pdf")
+
+    # 🔹 Step 8: Build participants with join/leave time
+    participants_with_time = build_participants_with_time(report)
+
+    # 🔹 Step 9: Store in MongoDB
     report_collection.insert_one({
         "user_id": user_id,
         "meeting_id": meeting_id,
@@ -149,8 +112,9 @@ def record(meeting_url, meeting_id=None, user_id=None):
         "audio": path,
         "json": json_path,
         "pdf_report_path": pdf_path,
-        "participants": participants,
+        "participants": participants_with_time,
         "created_at": datetime.datetime.utcnow()
     })
 
+    # 🔹 Step 10: Return audio path
     return path

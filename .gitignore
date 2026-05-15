@@ -1,8 +1,2 @@
-rag_env/
-venv/
-node_modules/
-__pycache__/
-*.pyc
-.env
-.vscode/
-client_secret.json
+
+hey chatgpt , as you can see my screenshot how much my model is hallucinating , as bot asking would yo like to attend meeting , we say go ahead then too its not scheduling this is problem, it should schedule meeting (not for only confined words) 

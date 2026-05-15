@@ -1,106 +1,97 @@
-# import requests
-# import webbrowser
-# from http.server import BaseHTTPRequestHandler, HTTPServer
-# import urllib.parse
-# import threading
-# import os
-# from dotenv import load_dotenv
-# import time
-
-# load_dotenv()
-
-# BASE_URL = os.getenv("NGROK_URL")
-
-# if not BASE_URL:
-#     raise Exception("NGROK_URL not found in .env")
-
-# API_URL = f"{BASE_URL}/chat"
-# LOGIN_URL = f"{BASE_URL}/auth/login"
-
-# user_id = None
-
-
-# class Handler(BaseHTTPRequestHandler):
-#     def do_GET(self):
-#         global user_id
-
-#         params = urllib.parse.parse_qs(
-#             urllib.parse.urlparse(self.path).query
-#         )
-
-#         user_id = params.get("user_id", [None])[0]
-
-#         self.send_response(200)
-#         self.end_headers()
-#         self.wfile.write(b"Login successful! Close this tab.")
-
-
-# def start_server():
-#     HTTPServer(("localhost", 5000), Handler).handle_request()
-
-
-# print("🔐 Opening login...")
-
-# threading.Thread(target=start_server, daemon=True).start()
-
-# # ✅ SIMPLE LOGIN
-# webbrowser.open(LOGIN_URL)
-
-# # wait
-# while user_id is None:
-#     time.sleep(1)
-
-# print(f"✅ Logged in! User ID: {user_id}")
-
-# # CHAT
-# while True:
-#     msg = input("You: ")
-
-#     if msg.lower() == "exit":
-#         break
-
-#     res = requests.post(
-#         API_URL,
-#         json={
-#             "user_id": user_id,
-#             "message": msg
-#         }
-#     )
-
-#     print("Bot:", res.json())
-
-
-
-
 import requests
 import os
 from dotenv import load_dotenv
-import time
+import webbrowser
+import speech_recognition as sr
 
+# =========================
+# LOAD ENV
+# =========================
 load_dotenv()
 
 BASE_URL = os.getenv("NGROK_URL")
 API_URL = f"{BASE_URL}/chat"
 LOGIN_URL = f"{BASE_URL}/auth/login"
 
+# =========================
+# LOGIN FLOW
+# =========================
 print("🔐 Opening login...")
-
-# open browser
-import webbrowser
 webbrowser.open(LOGIN_URL)
 
-# wait for manual copy (IMPORTANT FIX)
 print("\n👉 After login, copy user_id from browser response")
 user_id = input("Enter user_id: ").strip()
 
 print(f"✅ Logged in! User ID: {user_id}")
 
-while True:
-    msg = input("You: ")
+recognizer = sr.Recognizer()
 
-    if msg.lower() == "exit":
+
+# =========================
+# VOICE INPUT
+# =========================
+def get_voice_input():
+    try:
+        with sr.Microphone() as source:
+            print("🎤 Speak now...")
+            recognizer.adjust_for_ambient_noise(source, duration=1)
+            audio = recognizer.listen(source, timeout=20, phrase_time_limit=20)
+
+        text = recognizer.recognize_google(audio)
+        print("🗣 You (voice):", text)
+        return text
+
+    except Exception:
+        print("⚠️ Voice input failed")
+        return None
+
+
+# =========================
+# MODE SELECT (ONE TIME)
+# =========================
+print("\nChoose input mode:")
+print("1. Type message")
+print("2. Speak (voice)")
+
+while True:
+    mode = input("Enter choice (1/2): ").strip()
+    if mode in ["1", "2"]:
+        break
+    print("❌ Invalid choice")
+
+print(f"✅ Mode locked: {'TEXT' if mode == '1' else 'VOICE'}")
+print("Type 'quit_app' anytime to exit\n")
+
+
+# =========================
+# MAIN LOOP
+# =========================
+while True:
+
+    # =========================
+    # INPUT
+    # =========================
+    if mode == "1":
+        msg = input("You (text): ").strip()
+    else:
+        msg = get_voice_input()
+        if not msg:
+            continue
+
+    # =========================
+    # EXIT
+    # =========================
+    if msg.lower() == "quit_app":
+        print("👋 Exiting...")
         break
 
+    if not msg:
+        print("⚠️ Empty input")
+        continue
+
+    # =========================
+    # API CALL
+    # =========================
     try:
         res = requests.post(
             API_URL,
@@ -108,10 +99,16 @@ while True:
                 "user_id": user_id,
                 "message": msg
             },
-            timeout=3000
+            timeout=60
         )
 
-        print("Bot:", res.json())
+        response = res.json()
+        bot_msg = response.get("message", "")
+
+        print("\nBot:")
+        print(bot_msg)
 
     except Exception as e:
-        print("❌ Error:", e)
+        print("❌ API Error:", e)
+
+
