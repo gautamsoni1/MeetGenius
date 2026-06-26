@@ -20,7 +20,7 @@ def schedule_meeting(data: ScheduleRequest):
     SCOPES = ["https://www.googleapis.com/auth/calendar"]
 
     flow = Flow.from_client_secrets_file(
-        "client_secret.json",
+        "client_secrets.json",
         scopes=SCOPES,
         redirect_uri="NGROK_URL=https://stimulatingly-glumpier-hannelore.ngrok-free.dev/"
     )

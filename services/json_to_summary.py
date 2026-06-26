@@ -207,7 +207,7 @@ def json_to_summary(json_path, audio_filename="abc.mp3"):
     # ── CALL GROQ ─────────────────────────────
     try:
         response = client.chat.completions.create(
-            model="llama-3.1-8b-instant",
+            model="Llama 3.3 70B",
             messages=[
                 {"role": "system", "content": SUMMARY_SYSTEM},
                 {"role": "user", "content": transcript_text[:4000]}

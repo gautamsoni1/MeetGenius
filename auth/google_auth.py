@@ -14,9 +14,17 @@ os.environ["OAUTHLIB_INSECURE_TRANSPORT"] = "1"
 flow_store = {}
 
 
+from pathlib import Path
+
+BASE_DIR = Path(__file__).resolve().parent.parent
+
+CLIENT_SECRET_FILE = BASE_DIR / "credentials" / "client_secrets.json"
+
 def create_flow():
+    print("Using:", CLIENT_SECRET_FILE)
+
     return Flow.from_client_secrets_file(
-        "client_secret.json",
+        str(CLIENT_SECRET_FILE),
         scopes=SCOPES,
         redirect_uri=GOOGLE_REDIRECT_URI
     )
@@ -90,7 +98,7 @@ def handle_callback(full_url: str, state: str):
     del flow_store[state]
 
     print("✅ LOGIN SUCCESS:", email)
-
+    
     # 🚨 IMPORTANT: RETURN ONLY DATA (NO REDIRECT LOOP)
     return {
         "message": "Login successful",

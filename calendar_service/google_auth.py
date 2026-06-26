@@ -4,7 +4,7 @@ from config.config import GOOGLE_SCOPES, GOOGLE_REDIRECT_URI
 
 def get_google_flow():
     flow = Flow.from_client_secrets_file(
-        "client_secret.json",
+        "client_secrets.json",
         scopes=GOOGLE_SCOPES,
         redirect_uri=GOOGLE_REDIRECT_URI
     )

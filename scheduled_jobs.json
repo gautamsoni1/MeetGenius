@@ -126,5 +126,11 @@
     "scheduled_at": "2026-05-05T12:00:00",
     "user_id": "4bc35f52-bdcb-49b8-8bc3-8d059d17409c",
     "status": "done"
+  },
+  "fvc0ff46357eb1n3rvm9i47d48": {
+    "meeting_url": "https://meet.google.com/rqo-hzca-amh",
+    "scheduled_at": "2026-06-26T15:10:00",
+    "user_id": "4bc35f52-bdcb-49b8-8bc3-8d059d17409c",
+    "status": "done"
   }
 }

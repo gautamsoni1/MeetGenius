@@ -1,2 +1,8 @@
-
-hey chatgpt , as you can see my screenshot how much my model is hallucinating , as bot asking would yo like to attend meeting , we say go ahead then too its not scheduling this is problem, it should schedule meeting (not for only confined words) 
+.env
+venv
+credentials/client_secrets.json
+reports
+transscripts
+.ipynb
+scheduled_jobs.json
+recordings

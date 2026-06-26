@@ -147,6 +147,14 @@ async def transcribe_file(file_path: str) -> str:
     
         try:
             pdf_path = json_to_pdf(report_json, filename=f"{base_name}.pdf")
+            report_collection.update_one(
+                {"user_id": user_id},
+                {
+                    "$set": {
+                        "pdf_report_path": pdf_path
+                    }
+                }
+            )
             print(f"✅ PDF Generated: {pdf_path}")
         except Exception as e:
             print(f"❌ PDF Generation Failed: {e}")
