@@ -2,7 +2,7 @@
 venv
 credentials/client_secrets.json
 reports
-transscripts
+transcripts
 .ipynb
 scheduled_jobs.json
 recordings
