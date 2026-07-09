@@ -12,7 +12,15 @@ openai
 python-multipart
 google-cloud-vision
 sumy
-load_dotenv
 moviepy
 google_auth_oauthlib
 google-api-python-client
+pymongo
+apscheduler
+groq
+langchain-core
+langchain-mistralai
+langchain-community
+faiss-cpu
+cryptography
+reportlab
