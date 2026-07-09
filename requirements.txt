@@ -20,6 +20,8 @@ google_auth_oauthlib
 google-api-python-client
 apscheduler
 groq
+streamlit
+SpeechRecognition
 langchain-core
 langchain-mistralai
 langchain-community
