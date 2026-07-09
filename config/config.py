@@ -12,6 +12,8 @@ load_dotenv()
 
 MONGO_URI = os.getenv("MONGO_URI")
 DB_NAME = os.getenv("DB_NAME")
+if not MONGO_URI:
+    raise RuntimeError("❌ MONGO_URI is missing from environment variables")
 
 RECALL_API_KEY = os.getenv("RECALL_API_KEY")
 BASE_URL       = os.getenv("BASE_URL", "https://us-west-2.recall.ai/api/v1")
@@ -38,7 +40,7 @@ SCOPES = [
     "https://www.googleapis.com/auth/userinfo.profile",
     "openid"
 ]
-GOOGLE_REDIRECT_URI = "https://stimulatingly-glumpier-hannelore.ngrok-free.dev/auth/callback"
+GOOGLE_REDIRECT_URI = os.getenv("GOOGLE_REDIRECT_URI")
 
 
 # ==============================
