@@ -1,7 +1,8 @@
 from pymongo import MongoClient
 from config.config import MONGO_URI
+import certifi
 
-client = MongoClient(MONGO_URI)
+client = MongoClient(MONGO_URI, tlsCAFile=certifi.where())
 db = client["meeting_ai"]
 
 user_collection = db["users"] 
