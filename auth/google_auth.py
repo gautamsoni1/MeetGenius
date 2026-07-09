@@ -15,10 +15,16 @@ flow_store = {}
 
 
 from pathlib import Path
+import os
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-CLIENT_SECRET_FILE = BASE_DIR / "credentials" / "client_secrets.json"
+# Render secret files land in /etc/secrets/ — check there first,
+# fall back to local credentials/ folder for local development.
+_RENDER_SECRET_PATH = Path("/etc/secrets/client_secrets.json")
+_LOCAL_SECRET_PATH = BASE_DIR / "credentials" / "client_secrets.json"
+
+CLIENT_SECRET_FILE = _RENDER_SECRET_PATH if _RENDER_SECRET_PATH.exists() else _LOCAL_SECRET_PATH
 
 def create_flow():
     print("Using:", CLIENT_SECRET_FILE)
