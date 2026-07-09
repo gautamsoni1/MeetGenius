@@ -1,3 +1,5 @@
+from routes.webhook_routes import router as webhook_router
+from routes.meeting_routes import router as meeting_router
 from fastapi import FastAPI
 from fastapi.staticfiles import StaticFiles
 from routes.auth_routes import router as auth_router
@@ -28,6 +30,8 @@ def startup_event():
 
 app.include_router(auth_router)
 app.include_router(chat_router)
+app.include_router(webhook_router)
+app.include_router(meeting_router)
 
 # =========================
 # STATIC FILES (PDF)
