@@ -22,8 +22,18 @@ st.set_page_config(page_title="Meeting Bot", layout="wide")
 # =========================
 # SESSION STATE
 # =========================
+# =========================
+# AUTO-DETECT LOGIN FROM URL
+# =========================
+query_params = st.query_params  # Streamlit 1.30+ syntax
+
 if "user_id" not in st.session_state:
     st.session_state.user_id = None
+
+# Agar URL mein user_id hai (Google login ke baad redirect se aaya)
+if "user_id" in query_params and not st.session_state.user_id:
+    st.session_state.user_id = query_params["user_id"]
+    st.sidebar.success(f"✅ Auto-logged in!")
 
 if "chat_history" not in st.session_state:
     st.session_state.chat_history = []
