@@ -16,6 +16,10 @@ def login():
 
 
 
+from fastapi.responses import RedirectResponse
+
+STREAMLIT_URL = os.getenv("STREAMLIT_URL", "http://localhost:8501")
+
 @router.get("/auth/callback")
 def callback(request: Request):
 
@@ -24,4 +28,12 @@ def callback(request: Request):
 
     result = handle_callback(full_url, state)
 
-    return result   # ❌ NO redirect anymore
+    if "error" in result:
+        # login fail hua toh error ke saath wapas bhejo
+        return RedirectResponse(f"{STREAMLIT_URL}/?error=login_failed")
+
+    user_id = result.get("user_id")
+    email = result.get("email")
+
+    # ✅ Automatic redirect with user_id in URL
+    return RedirectResponse(f"{STREAMLIT_URL}/?user_id={user_id}&email={email}")
