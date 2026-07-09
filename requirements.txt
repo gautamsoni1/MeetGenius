@@ -24,3 +24,4 @@ langchain-community
 faiss-cpu
 cryptography
 reportlab
+dateparser
