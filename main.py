@@ -8,11 +8,19 @@ from Record import record
 from services.scheduler_service import start_scheduler
 from threading import Thread
 from pydantic import BaseModel
+from fastapi.middleware.cors import CORSMiddleware
 from db.mongo import chat_collection, report_collection  # ✅ added
 import os
 
 app = FastAPI()
 
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["https://meetgenius-frontend.onrender.com"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 # =========================
 # PATH SETUP
 # =========================
