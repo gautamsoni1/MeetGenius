@@ -2,15 +2,16 @@ import streamlit as st
 import requests
 import os
 from dotenv import load_dotenv
-import webbrowser
 import speech_recognition as sr
 
 # =========================
 # LOAD ENV
 # =========================
-load_dotenv()
+load_dotenv()  # only matters for local runs; on Render set env vars in dashboard
 
-BASE_URL = os.getenv("NGROK_URL")
+# ✅ On Render, set BACKEND_URL in the frontend service's Environment tab to:
+# https://meetingbot-backend-ez5d.onrender.com
+BASE_URL = os.getenv("BACKEND_URL", "http://localhost:8000")
 API_URL = f"{BASE_URL}/chat"
 LOGIN_URL = f"{BASE_URL}/auth/login"
 
@@ -20,9 +21,6 @@ LOGIN_URL = f"{BASE_URL}/auth/login"
 st.set_page_config(page_title="Meeting Bot", layout="wide")
 
 # =========================
-# SESSION STATE
-# =========================
-# =========================
 # AUTO-DETECT LOGIN FROM URL
 # =========================
 query_params = st.query_params  # Streamlit 1.30+ syntax
@@ -30,10 +28,10 @@ query_params = st.query_params  # Streamlit 1.30+ syntax
 if "user_id" not in st.session_state:
     st.session_state.user_id = None
 
-# Agar URL mein user_id hai (Google login ke baad redirect se aaya)
+# Agar URL mein user_id hai (Google login ke baad backend redirect se aaya)
 if "user_id" in query_params and not st.session_state.user_id:
     st.session_state.user_id = query_params["user_id"]
-    st.sidebar.success(f"✅ Auto-logged in!")
+    st.sidebar.success("✅ Auto-logged in!")
 
 if "chat_history" not in st.session_state:
     st.session_state.chat_history = []
@@ -48,9 +46,9 @@ recognizer = sr.Recognizer()
 # =========================
 st.sidebar.title("⚙️ Settings")
 
-if st.sidebar.button("🔐 Login"):
-    webbrowser.open(LOGIN_URL)
-    st.sidebar.success("Login page opened!")
+# ✅ FIX: webbrowser.open() runs on the SERVER, not the user's browser.
+# On Render this silently does nothing. Use a clickable link instead.
+st.sidebar.link_button("🔐 Login with Google", LOGIN_URL)
 
 user_id_input = st.sidebar.text_input("Enter User ID")
 
@@ -64,6 +62,13 @@ if st.sidebar.button("✅ Confirm User"):
 # Mode selection
 mode = st.sidebar.radio("Input Mode", ["Text", "Voice"])
 st.session_state.mode = mode.lower()
+
+if st.session_state.mode == "voice":
+    st.sidebar.warning(
+        "⚠️ Voice mode uses the SERVER's microphone (sr.Microphone()). "
+        "This works locally but will NOT work on Render, since the deployed "
+        "server has no physical microphone."
+    )
 
 # =========================
 # MAIN UI
@@ -84,7 +89,7 @@ def get_voice_input():
         return text
 
     except Exception:
-        st.error("Voice input failed")
+        st.error("Voice input failed (no microphone available on server?)")
         return None
 
 # =========================
