@@ -2,9 +2,9 @@ import json
 import os
 from datetime import datetime
 import requests
-from config.config import NGROK_URL
+from config.config import BACKEND_URL
 
-RECORD_API = f"{NGROK_URL}/record"
+RECORD_API = f"{BACKEND_URL}/record"
 JOBS_FILE = "scheduled_jobs.json"
 
 
