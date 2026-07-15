@@ -1,7 +1,7 @@
 # services/webhook_handler.py
 import threading
 import time
-from config.config import NGROK_URL, RECORDINGS_DIR
+from config.config import BACKEND_URL, RECORDINGS_DIR
 from services.downloader import download_mp3
 from services.Recall_client import get_mixed_audio_url
 from utils import store
@@ -86,11 +86,11 @@ def _process_recording(bot_id: str):
     local_file = download_mp3(mp3_url, bot_id, RECORDINGS_DIR)
     print(f"   ✅ local_file = {local_file}")
 
-    if not NGROK_URL:
-        raise ValueError("❌ NGROK_URL is empty — cannot build public download URL")
+    if not BACKEND_URL:
+        raise ValueError("❌ BACKEND_URL is empty — cannot build public download URL")
 
     filename   = f"{bot_id}.mp3"
-    public_url = f"{NGROK_URL}/download/{filename}"
+    public_url = f"{BACKEND_URL}/download/{filename}"
 
     # ── Mark as fully done ────────────────────────────────────────────────────
     store.upsert(
