@@ -2,7 +2,7 @@ import os
 from fastapi import APIRouter, HTTPException
 from fastapi.responses import FileResponse
 from pydantic import BaseModel
-from config.config import WEBHOOK_URL, NGROK_URL, RECORDINGS_DIR
+from config.config import WEBHOOK_URL, BACKEND_URL, RECORDINGS_DIR
 from services.Recall_client import create_bot, get_mixed_audio_url
 from utils import store
 from utils.store import upsert, get
@@ -143,7 +143,7 @@ async def get_recording(bot_id: str):
 
     if local_file and os.path.exists(local_file):
         # Serve from local recordings/ folder via /download/ route
-        download_url = f"{NGROK_URL}/download/{filename}" if NGROK_URL else f"/download/{filename}"
+        download_url = f"{BACKEND_URL}/download/{filename}" if BACKEND_URL else f"/download/{filename}"
     else:
         # Fallback: point to Recall CDN URL if local file missing
         download_url = info.get("mp3_download_url")
