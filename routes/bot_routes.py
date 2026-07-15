@@ -2,7 +2,7 @@ import requests
 from fastapi import APIRouter, HTTPException
 from pydantic import BaseModel
 from config.config import WEBHOOK_URL
-from config.config import RECALL_API_KEY, BASE_URL, NGROK_URL
+from config.config import RECALL_API_KEY, BASE_URL, BACKEND_URL
 from services.Recall_client import create_bot
 from services.Recall_client import get_mixed_audio_url
 from utils import store
@@ -78,7 +78,7 @@ async def get_status(bot_id: str):
         mp3_url = get_mixed_audio_url(bot_id)
         if mp3_url:
             filename = f"{bot_id}.mp3"
-            public_url = f"{NGROK_URL}/download/{filename}" if NGROK_URL else None
+            public_url = f"{BACKEND_URL}/download/{filename}" if BACKEND_URL else None
             upsert(bot_id, status="done", mp3_download_url=mp3_url, public_url=public_url)  # ← add public_url
         else:
             upsert(bot_id, status="recording")
