@@ -18,10 +18,10 @@ if not MONGO_URI:
 RECALL_API_KEY = os.getenv("RECALL_API_KEY")
 BASE_URL       = os.getenv("BASE_URL", "https://us-west-2.recall.ai/api/v1")
 
-# Ngrok public URL (no trailing slash)
-NGROK_URL   = os.getenv("NGROK_URL", "").rstrip("/")
-WEBHOOK_URL = f"{NGROK_URL}/webhook" if NGROK_URL else ""
-RECORD_API = f"{NGROK_URL}/record"
+# Public backend URL (Render service URL, no trailing slash)
+BACKEND_URL = os.getenv("BACKEND_URL", "").rstrip("/")
+WEBHOOK_URL = f"{BACKEND_URL}/webhook" if BACKEND_URL else ""
+RECORD_API = f"{BACKEND_URL}/record"
 # ==============================
 # 🔹 ASSEMBLYAI CONFIG
 # ==============================
@@ -68,13 +68,13 @@ os.makedirs(RECORDINGS_DIR, exist_ok=True)
 if not RECALL_API_KEY:
     raise RuntimeError("❌ RECALL_API_KEY is missing from .env")
 
-if not NGROK_URL:
-    print("⚠️  NGROK_URL is not set — webhook and public download URLs will not work!")
+if not BACKEND_URL:
+    print("⚠️  BACKEND_URL is not set — webhook and record trigger URLs will not work!")
 
 # ==============================
 # 🔹 STARTUP DEBUG PRINTS
 # ==============================
-print("🌐 NGROK_URL      :", NGROK_URL)
+print("🌐 BACKEND_URL    :", BACKEND_URL)
 print("🔗 WEBHOOK_URL    :", WEBHOOK_URL)
 print("📁 RECORDINGS_DIR :", RECORDINGS_DIR)
 print("Recall ai :",RECALL_API_KEY)
