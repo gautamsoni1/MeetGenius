@@ -2,6 +2,7 @@ import json
 import os
 from datetime import datetime
 import requests
+from datetime import datetime, timezone
 from config.config import BACKEND_URL
 
 RECORD_API = f"{BACKEND_URL}/record"
@@ -42,38 +43,36 @@ def add_scheduled_meeting(job_id, meeting_url, scheduled_at_iso, user_id):
     print(f"✅ Job Scheduled: {job_id}")
 
 def check_jobs():
-
     jobs = load_jobs()
-    now = datetime.now()
-
+    now = datetime.now(timezone.utc)          # ✅ UTC-aware, Render server ka clock
     for job_id, job in jobs.items():
-
         if job.get("status") != "pending":
             continue
-
         meeting_url = job.get("meeting_url")
-
         if not meeting_url:
             job["status"] = "failed"
             continue
 
         scheduled = datetime.fromisoformat(job["scheduled_at"])
+        if scheduled.tzinfo is None:
+            # agar scheduled_at_iso naive hai (IST bina offset ke likha gaya), UTC treat mat karo
+            scheduled = scheduled.replace(tzinfo=timezone.utc)
+
+        print(f"[check_jobs] job={job_id} now(UTC)={now} scheduled={scheduled}")  # 👈 debug line
 
         if now >= scheduled:
-
             print(f"🚀 Running Job: {job_id}")
-
-            res = requests.post(RECORD_API, json={
-                "meeting_url": meeting_url,
-                "meeting_id": job_id,
-                "user_id": job["user_id"]
-            })
-
-            if res.status_code == 200:
-                job["status"] = "done"
-            else:
+            try:
+                res = requests.post(RECORD_API, json={
+                    "meeting_url": meeting_url,
+                    "meeting_id": job_id,
+                    "user_id": job["user_id"]
+                }, timeout=30)
+                print(f"[check_jobs] RECORD_API status={res.status_code} body={res.text}")
+                job["status"] = "done" if res.status_code == 200 else "failed"
+            except Exception as e:
+                print(f"❌ [check_jobs] request failed: {e}")
                 job["status"] = "failed"
-
     save_jobs(jobs)
 
 
